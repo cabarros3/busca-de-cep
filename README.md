@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Busca CEP
 
-## Getting Started
+Repositório com projeto Busca CEP, uma aplicação que consome a API viaCEP para pegar os dados de um cep e mostrar em uma tabela o logradouro, a cidade, o estado e a região do endereço.
 
-First, run the development server:
+## Visualize o Projeto
+
+![](./src/app/imagens-projeto/img1.png)
+
+## Funcionalidades
+
+- Click do botão: ao clicar no botão com o input preenchido, a aplicação faz uma requisição para a API que retorna os dados do endereço vinculados ao número do CEP.
+
+## Para rodar o projeto no seu computador:
+
+- Para clonar o repositório:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/cabarros3/busca-de-cep.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Instale as dependências:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Compile e Inicie o Projeto:
 
-## Learn More
+```bash
+  npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologias Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **HTML**: Estruturação da página.
+- **CSS**: Estilização do layout e design responsivo.
+- **TypeScript**: Lógica da aplicação e definição de tipos.
+- **React**: biblioteca.
+- **Next**: Ferramenta de build e desenvolvimento.
+- **viaCEP**: API.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**_Entre em contato comigo_**
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **LinkedIn**: [Camilla Barros](https://www.linkedin.com/in/camillabarros/)
