@@ -164,7 +164,7 @@ export default function Home() {
 
   function handleDeleteAdress(id: string){
     setEnderecos(enderecos.filter((enderecos) => enderecos.id !== id));
-    alert("Registro deletado")
+    
   }
 
   return (
