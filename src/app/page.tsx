@@ -160,6 +160,10 @@ export default function Home() {
     }
   }
 
+  function handleDeleteAdress(id: string){
+    setEnderecos(enderecos.filter((enderecos) => enderecos.id !== id));
+  }
+
   return (
     <div>
       <div className="py-5 text-4xl px-5 font-bold">
@@ -204,12 +208,14 @@ export default function Home() {
         <table className="bg-blue-200 text-black font-bold shadow-md text-center">
           <thead>
             <tr className="">
+              <th className="px-5 py-5">CEP</th>
               <th className="px-5 py-5">Logradouro</th>
               <th className="px-5 py-5">Bairro</th>
               <th className="px-5 py-5">Cidade</th>
               <th className="px-5 py-5">Estado</th>
               <th className="px-5 py-5">Região</th>
-              <th className="px-5 py-5">Criação do Registro</th>
+              <th className="px-5 py-5">Consultado em</th>
+              <th className="px-5 py-5"></th>
             </tr>
           </thead>
           <tbody className="bg-white text-sm text-center font-normal">
@@ -218,12 +224,18 @@ export default function Home() {
                 key={enderecos.id}
                 className="odd:bg-gray-100 even:bg-gray-200 border-b border-gray-300"
               >
+                <td className="px-5 py-5">{enderecos.cep}</td>
                 <td className="px-5 py-5">{enderecos.logradouro}</td>
                 <td className="px-5 py-5">{enderecos.bairro}</td>
                 <td className="px-5 py-5">{enderecos.localidade}</td>
                 <td className="px-5 py-5">{enderecos.estado}</td>
                 <td className="px-5 py-5">{enderecos.regiao}</td>
                 <td className="px-5 py-5">{formatDate(enderecos.createdAt)}</td>
+                <td className="px-5 py-5">
+                  <button onClick={() => handleDeleteAdress(enderecos.id)} className="bg-red-500 text-white px-2 py-1 rounded">
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
