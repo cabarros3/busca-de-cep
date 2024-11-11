@@ -4,6 +4,7 @@ import { getAddress } from "../../get-address";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { v4 as uuidv4 } from "uuid";
+import { FaTrash } from "react-icons/fa";
 
 const inititalEnderecos: Address[] = [
   // {
@@ -140,6 +141,7 @@ export default function Home() {
       const result = await getAddress(inputValue);
       setAddress(result.logradouro);
       console.log(address);
+      
       // address = result;
 
       // const newEnderecos = [...enderecos, result];
@@ -162,6 +164,7 @@ export default function Home() {
 
   function handleDeleteAdress(id: string){
     setEnderecos(enderecos.filter((enderecos) => enderecos.id !== id));
+    alert("Registro deletado")
   }
 
   return (
@@ -215,7 +218,7 @@ export default function Home() {
               <th className="px-5 py-5">Estado</th>
               <th className="px-5 py-5">Região</th>
               <th className="px-5 py-5">Consultado em</th>
-              <th className="px-5 py-5"></th>
+              <th className="px-5 py-5">Ações</th>
             </tr>
           </thead>
           <tbody className="bg-white text-sm text-center font-normal">
@@ -232,8 +235,8 @@ export default function Home() {
                 <td className="px-5 py-5">{enderecos.regiao}</td>
                 <td className="px-5 py-5">{formatDate(enderecos.createdAt)}</td>
                 <td className="px-5 py-5">
-                  <button onClick={() => handleDeleteAdress(enderecos.id)} className="bg-red-500 text-white px-2 py-1 rounded">
-                    Excluir
+                  <button onClick={() => handleDeleteAdress(enderecos.id)} className=" text-white px-2 py-2 rounded">
+                  <FaTrash size={15} color="red"/>
                   </button>
                 </td>
               </tr>
