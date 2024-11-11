@@ -4,7 +4,7 @@ Repositório com projeto Busca CEP, uma aplicação que consome a API viaCEP par
 
 ## Visualize o Projeto
 
-![](./src/app/imagens-projeto/img1.png)
+![](./src/app/imagens/img1.PNG)
 
 ## Funcionalidades
 
