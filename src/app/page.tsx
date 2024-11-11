@@ -1,101 +1,234 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { getAddress } from "../../get-address";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { v4 as uuidv4 } from "uuid";
+
+const inititalEnderecos: Address[] = [
+  // {
+  //   id: uuidv4(),
+  //   cep: "51270380",
+  //   logradouro: "Rua Engenho Carau",
+  //   complemento: "",
+  //   unidade: "1",
+  //   bairro: "Cohab",
+  //   localidade: "Recife",
+  //   uf: "PE",
+  //   estado: "Pernambuco",
+  //   regiao: "Nordeste",
+  //   ibge: "2611606",
+  //   gia: "",
+  //   ddd: "81",
+  //   siafi: "2619",
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: uuidv4(),
+  //   cep: "30130010",
+  //   logradouro: "Avenida Afonso Pena",
+  //   complemento: "",
+  //   unidade: "2",
+  //   bairro: "Centro",
+  //   localidade: "Belo Horizonte",
+  //   uf: "MG",
+  //   estado: "Minas Gerais",
+  //   regiao: "Sudeste",
+  //   ibge: "3106200",
+  //   gia: "",
+  //   ddd: "31",
+  //   siafi: "4123",
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: uuidv4(),
+  //   cep: "01310000",
+  //   logradouro: "Avenida Paulista",
+  //   complemento: "",
+  //   unidade: "3",
+  //   bairro: "Bela Vista",
+  //   localidade: "São Paulo",
+  //   uf: "SP",
+  //   estado: "São Paulo",
+  //   regiao: "Sudeste",
+  //   ibge: "3550308",
+  //   gia: "1004",
+  //   ddd: "11",
+  //   siafi: "7107",
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: uuidv4(),
+  //   cep: "40020000",
+  //   logradouro: "Praça da Sé",
+  //   complemento: "Edifício Central",
+  //   unidade: "4",
+  //   bairro: "Centro Histórico",
+  //   localidade: "Salvador",
+  //   uf: "BA",
+  //   estado: "Bahia",
+  //   regiao: "Nordeste",
+  //   ibge: "2927408",
+  //   gia: "",
+  //   ddd: "71",
+  //   siafi: "3849",
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: uuidv4(),
+  //   cep: "70040900",
+  //   logradouro: "Esplanada dos Ministérios",
+  //   complemento: "",
+  //   unidade: "5",
+  //   bairro: "Zona Cívico-Administrativa",
+  //   localidade: "Brasília",
+  //   uf: "DF",
+  //   estado: "Distrito Federal",
+  //   regiao: "Centro-Oeste",
+  //   ibge: "5300108",
+  //   gia: "",
+  //   ddd: "61",
+  //   siafi: "9701",
+  //   createdAt: new Date(),
+  // },
+];
+
+type Address = {
+  id: string;
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  unidade: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  estado: string;
+  regiao: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
+  createdAt: Date;
+};
+
+function formatDate(date: Date) {
+  const result = formatDistanceToNow(new Date(date), {
+    includeSeconds: true,
+    locale: ptBR,
+  });
+
+  return result;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [address, setAddress] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const [enderecos, setEnderecos] = useState<Address[]>(inititalEnderecos);
+
+  const [inputValue, setInputValue] = useState("");
+
+  async function handleGetAddress() {
+    if (inputValue.length !== 8) {
+      alert("CEP inválido");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const result = await getAddress(inputValue);
+      setAddress(result.logradouro);
+      console.log(address);
+      // address = result;
+
+      // const newEnderecos = [...enderecos, result];
+      const newEndereco: Address = {
+        id: uuidv4(),
+        createdAt: new Date(),
+        ...result,
+      };
+
+      console.log(newEndereco);
+
+      setEnderecos([newEndereco, ...enderecos]);
+    } catch (error) {
+      console.log(error);
+      alert("Ocorreu um erro ao obter o endereço.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div>
+      <div className="py-5 text-4xl px-5 font-bold">
+        <h2>Pesquisa de CEP</h2>
+      </div>
+
+      <div className="flex flex-row gap-5 px-5 py-5">
+        <label className="self-center">Endereço</label>
+        <input
+          onChange={(event) => setInputValue(event.target.value)}
+          placeholder="Digite o CEP aqui"
+          className="border"
+        />
+        <button
+          disabled={inputValue === ""}
+          onClick={handleGetAddress}
+          className={`${
+            loading && "opacity-30"
+          } w-fit px-5 py-1 bg-blue-700 text-white rounded-xl`}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          {loading ? "Carregando..." : "Obter endereço"}
+        </button>
+      </div>
+
+      {/* <ul>
+        <li>Arthur de Oliveira</li>
+        <li>Lucas Galvão</li>
+        <li>Izabelle Alves</li>
+        <li>Gabryella Silva</li>
+        <li>Camilinha Barros</li>
+      </ul> */}
+
+      {/* <ul>
+        {enderecos.map((endereco) => (
+          <li key={endereco.id}>
+            {endereco.logradouro}, {formatDate(endereco.createdAt)}
+          </li>
+        ))}
+      </ul> */}
+
+      <div className="px-5 py-5">
+        <table className="bg-blue-200 text-black font-bold shadow-md text-center">
+          <thead>
+            <tr className="">
+              <th className="px-5 py-5">Logradouro</th>
+              <th className="px-5 py-5">Bairro</th>
+              <th className="px-5 py-5">Cidade</th>
+              <th className="px-5 py-5">Estado</th>
+              <th className="px-5 py-5">Região</th>
+              <th className="px-5 py-5">Criação do Registro</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white text-sm text-center font-normal">
+            {enderecos.map((enderecos) => (
+              <tr
+                key={enderecos.id}
+                className="odd:bg-gray-100 even:bg-gray-200 border-b border-gray-300"
+              >
+                <td className="px-5 py-5">{enderecos.logradouro}</td>
+                <td className="px-5 py-5">{enderecos.bairro}</td>
+                <td className="px-5 py-5">{enderecos.localidade}</td>
+                <td className="px-5 py-5">{enderecos.estado}</td>
+                <td className="px-5 py-5">{enderecos.regiao}</td>
+                <td className="px-5 py-5">{formatDate(enderecos.createdAt)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
