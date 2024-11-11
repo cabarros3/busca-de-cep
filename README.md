@@ -37,7 +37,8 @@ Repositório com projeto Busca CEP, uma aplicação que consome a API viaCEP par
 - **TypeScript**: Lógica da aplicação e definição de tipos.
 - **React**: biblioteca.
 - **Next**: Ferramenta de build e desenvolvimento.
-- **viaCEP**: API.
+- **viaCEP**: API que pode ser acessada [aqui](https://viacep.com.br/).
+- **date-fns**: manipulação de datas.
 
 **_Entre em contato comigo_**
 
